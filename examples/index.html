@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="../node_modules/angular/angular.js"></script>
+  <script src="../slider.js"></script>
+  <link href="../slider.css" rel="stylesheet">
+  <style>
+    body {
+        width: 600px;
+        margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div ng-app="ch.examples.slider">
+    <h1>Slider test</h1>
+    <slider>
+    </slider>
+  </div>
+  <script>
+    angular.module('ch.examples.slider', ['chasselberg.slider']);
+  </script>
+
+</body>
+
+</html>
