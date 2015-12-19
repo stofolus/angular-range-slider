@@ -16,8 +16,11 @@
 <body>
   <div ng-app="ch.examples.slider">
     <h1>Slider test</h1>
-    <slider>
+    <slider model="sliderValue">
     </slider>
+    <span>Value: {{ sliderValue }}</span>
+    <br>
+    <input ng-model="sliderValue">
   </div>
   <script>
     angular.module('ch.examples.slider', ['chasselberg.slider']);
