@@ -21,6 +21,10 @@
     left: 190px;
 }
 
+slider[disabled] .ch-slider .ch-slider-bar .ch-slider-handle {
+    background-color: black;
+}
+
 .ch-slider .ch-slider-bar .ch-slider-fill {
     position: absolute;
     top: 0;

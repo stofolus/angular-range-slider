@@ -24,7 +24,6 @@ Angular
 * Keyboard support for a11y
 
 ## What's left:
-* Disabled state
 * SASS support
 
 ## Usage

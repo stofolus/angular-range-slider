@@ -183,6 +183,10 @@ function SliderDirective() {
                 $scope.step = (value === undefined || value === '' || isNaN(value)) ? 1 : parseFloat(value);
                 update();
             });
+            $scope.$watch(function() { return $element.attr('disabled'); }, function(value) {
+                console.log(value);
+                $scope.disabled = (value === undefined) ? false : true;
+            });
 
             function update() {
                 setValue($scope.model);
