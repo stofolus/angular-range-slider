@@ -27,25 +27,27 @@ function SliderDirective() {
         $scope.max = ($scope.max === undefined) ? 100 : $scope.max;
         $scope.step = ($scope.step === undefined) ? 1 : $scope.step;
 
-        handleWatcher();
+        setupEvents();
 
 
-        function handleWatcher() {
+        function setupEvents() {
             var isActive = false;
             $handle.on('mousedown', function() {
                 isActive = true;
+                angular.element(window).on('mousemove', moveFunction);
             });
             angular.element(window).on('mouseup', function() {
                 if (isActive) {
                     isActive = false;
+                    angular.element(window).off('mousemove', moveFunction);
                 }
             });
-            angular.element(window).on('mousemove', function(event) {
+            function moveFunction(event) {
                 if (isActive) {
                     event.preventDefault();
                     calcPosition(event);
                 }
-            });
+            }
         }
 
         function calcPosition(event) {
