@@ -229,12 +229,7 @@ function SliderDirective() {
         }
 
         function roundToInterval(number, interval) {
-            if (number > 0)
-                return Math.ceil(number / interval) * interval;
-            else if (number < 0)
-                return Math.floor(number / interval) * interval;
-            else
-                return number;
+            return Math.round(number / interval) * interval;
         }
     }
 
