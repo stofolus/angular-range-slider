@@ -35,10 +35,10 @@ function SliderDirective() {
         init();
 
         function init() {
-            $scope.min = ($scope.min === undefined) ? 0 : $scope.min;
-            $scope.max = ($scope.max === undefined) ? 100 : $scope.max;
-            $scope.step = ($scope.step === undefined) ? 1 : $scope.step;
-            $scope.model = ($scope.model === undefined) ? ($scope.max - $scope.min) / 2 : $scope.model;
+            $scope.min = ($scope.min === undefined) ? 0 : parseFloat($scope.min);
+            $scope.max = ($scope.max === undefined) ? 100 : parseFloat($scope.max);
+            $scope.step = ($scope.step === undefined) ? 1 : parseFloat($scope.step);
+            $scope.model = ($scope.model === undefined) ? ($scope.max - $scope.min) / 2 : parseFloat($scope.model);
 
             setupEvents();
             setupKeyboardEvents();
@@ -140,6 +140,7 @@ function SliderDirective() {
                 switch (event.keyCode) {
                     case Keys.UP:
                     case Keys.RIGHT:
+                        console.log('Setting to ' + ($scope.model + $scope.step));
                         setValue($scope.model + $scope.step, true, true);
                         break;
                     case Keys.DOWN:
@@ -166,19 +167,20 @@ function SliderDirective() {
             $scope.$watch(function() {
                 return $scope.model;
             }, function(value) {
+                value = (value === undefined || value === '' || isNaN(value)) ? 0 : parseFloat(value);
                 setValue(value, false);
             });
 
             attributes.$observe('min', function(value) {
-                $scope.min = (value === undefined || value === '' || isNaN(value)) ? 0 : value;
+                $scope.min = (value === undefined || value === '' || isNaN(value)) ? 0 : parseFloat(value);
                 update();
             });
             attributes.$observe('max', function(value) {
-                $scope.max = (value === undefined || value === '' || isNaN(value)) ? 100 : value;
+                $scope.max = (value === undefined || value === '' || isNaN(value)) ? 100 : parseFloat(value);
                 update();
             });
             attributes.$observe('step', function(value) {
-                $scope.step = (value === undefined || value === '' || isNaN(value)) ? 1 : value;
+                $scope.step = (value === undefined || value === '' || isNaN(value)) ? 1 : parseFloat(value);
                 update();
             });
 
