@@ -6,9 +6,9 @@ function SliderDirective() {
         restrict: 'EA',
         scope: {
             model: '=',
-            min: '=',
-            max: '=',
-            step: '='
+            min: '@',
+            max: '@',
+            step: '@'
         },
         link: linkFunction,
         template: '<div class="ch-slider" tabindex="0">' +
@@ -26,7 +26,7 @@ function SliderDirective() {
     };
     return directive;
 
-    function linkFunction($scope, $element) {
+    function linkFunction($scope, $element, attributes) {
         var $slider = angular.element($element[0].querySelector('.ch-slider'));
         var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
         var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
@@ -54,9 +54,11 @@ function SliderDirective() {
         function setupDragEvents() {
             var isActive = false;
             $handle.on('touchstart', function(event) {
-                isActive = true;
-                angular.element(window).on('touchmove', touchMove);
-                angular.element(window).on('touchend', touchEnd);
+                if($scope.disabled !== true) {
+                    isActive = true;
+                    angular.element(window).on('touchmove', touchMove);
+                    angular.element(window).on('touchend', touchEnd);
+                }
             });
 
             function touchMove(event) {
@@ -78,9 +80,11 @@ function SliderDirective() {
         function setupTouchEvents() {
             var isActive = false;
             $handle.on('mousedown', function(event) {
-                isActive = true;
-                angular.element(window).on('mousemove', dragMove);
-                angular.element(window).on('mouseup', dragEnd);
+                if($scope.disabled !== true) {
+                    isActive = true;
+                    angular.element(window).on('mousemove', dragMove);
+                    angular.element(window).on('mouseup', dragEnd);
+                }
             });
 
             function dragMove(event) {
@@ -147,17 +151,20 @@ function SliderDirective() {
                 setValue(value, false);
             });
 
-            $scope.$watch(function() {
-                return $scope.min;
-            }, updateEverything);
-            $scope.$watch(function() {
-                return $scope.max;
-            }, updateEverything);
-            $scope.$watch(function() {
-                return $scope.step;
-            }, updateEverything);
+            attributes.$observe('min', function(value) {
+                $scope.min = (value === undefined || value === '' || isNaN(value)) ? 0 : value;
+                update();
+            });
+            attributes.$observe('max', function(value) {
+                $scope.max = (value === undefined || value === '' || isNaN(value)) ? 100 : value;
+                update();
+            });
+            attributes.$observe('step', function(value) {
+                $scope.step = (value === undefined || value === '' || isNaN(value)) ? 1 : value;
+                update();
+            });
 
-            function updateEverything() {
+            function update() {
                 setValue($scope.model);
             }
         }
@@ -190,7 +197,7 @@ function SliderDirective() {
 
         function setValue(value, normalize, forceDigest) {
 
-
+            value = parseFloat(value);
 
             normalize = (normalize === undefined) ? true : normalize;
             forceDigest = (forceDigest === undefined) ? false : forceDigest;
@@ -229,12 +236,7 @@ function SliderDirective() {
         }
 
         function roundToInterval(number, interval) {
-            if (number > 0)
-                return Math.ceil(number / interval) * interval;
-            else if (number < 0)
-                return Math.floor(number / interval) * interval;
-            else
-                return number;
+            return Math.round(number / interval) * interval;
         }
     }
 

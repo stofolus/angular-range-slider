@@ -16,7 +16,7 @@
 <body>
     <div ng-app="ch.examples.slider">
         <h1>Slider test</h1>
-        <slider model="sliderValue" step="sliderStep" min="sliderMin" max="sliderMax">
+        <slider model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}">
         </slider>
         <br>
         <label>Value
@@ -24,15 +24,15 @@
         </label>
         <br>
         <label>Min
-            <input ng-model="sliderMin">
+            <input ng-init="sliderMin = 50" ng-model="sliderMin">
         </label>
         <br>
         <label>Max
-            <input ng-model="sliderMax">
+            <input ng-init="sliderMax = 200" ng-model="sliderMax">
         </label>
         <br>
         <label>Step
-            <input ng-model="sliderStep">
+            <input ng-init="sliderStep = 2" ng-model="sliderStep">
         </label>
     </div>
     <script>

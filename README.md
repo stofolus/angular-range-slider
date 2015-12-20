@@ -25,4 +25,3 @@ Angular
 ## What's left:
 * Clicking on the bar to change value and begin dragging
 * SASS support
-* Handle bad values in min, max & step
