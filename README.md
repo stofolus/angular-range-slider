@@ -5,6 +5,9 @@ An Angular range slider with accessibility. It only supports horizontal mode wit
 
 This should work in IE9+ (And ofc any real browser like Chrome or FF)
 
+## Demo
+[On CodePen](http://codepen.io/anon/pen/gPrVRX)
+
 ## Dependencies
 Angular
 
