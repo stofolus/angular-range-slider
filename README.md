@@ -18,12 +18,13 @@ Angular
 * Step
 * Dragging the handle
 * Touch supported dragging
+* Clicking the bar to goto value
 * No need to redraw on hide/show or resize
 * Aria attributes for a11y
 * Keyboard support for a11y
 
 ## What's left:
-* Clicking on the bar to change value and begin dragging
+* Disabled state
 * SASS support
 
 ## Usage

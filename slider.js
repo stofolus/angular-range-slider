@@ -61,6 +61,15 @@ function SliderDirective() {
                 }
             });
 
+            $bar.on('touchstart', function(event) {
+                if($scope.disabled !== true) {
+                    isActive = true;
+                    angular.element(window).on('touchmove', touchMove);
+                    angular.element(window).on('touchend', touchEnd);
+                    calcPosition(event);
+                }
+            });
+
             function touchMove(event) {
                 if (isActive) {
                     event.preventDefault();
@@ -84,6 +93,15 @@ function SliderDirective() {
                     isActive = true;
                     angular.element(window).on('mousemove', dragMove);
                     angular.element(window).on('mouseup', dragEnd);
+                }
+            });
+
+            $bar.on('mousedown', function(event) {
+                if($scope.disabled !== true) {
+                    isActive = true;
+                    angular.element(window).on('mousemove', dragMove);
+                    angular.element(window).on('mouseup', dragEnd);
+                    calcPosition(event);
                 }
             });
 
