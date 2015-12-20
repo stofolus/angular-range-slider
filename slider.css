@@ -13,10 +13,18 @@
 .ch-slider .ch-slider-bar .ch-slider-handle {
     width: 20px;
     height: 20px;
-    background-color: green;
+    background-color: blue;
     border-radius: 9999px;
     display: block;
     position: absolute;
     top: -5px;
     left: 190px;
+}
+
+.ch-slider .ch-slider-bar .ch-slider-fill {
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left: 0;
+    background-color: green;
 }

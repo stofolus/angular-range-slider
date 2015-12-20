@@ -13,6 +13,7 @@ function SliderDirective() {
         link: linkFunction,
         template: '<div class="ch-slider" tabindex="0">' +
             '<div class="ch-slider-bar">' +
+            '<span class="ch-slider-fill"></span>' +
             '<span class="ch-slider-handle" ' +
             'role="slider" ' +
             'aria-valuemin="{{ min }}" ' +
@@ -20,7 +21,6 @@ function SliderDirective() {
             'aria-valuenow="{{ model }}" ' +
             'aria-orientation="horizontal" ' +
             '></span>' +
-            '<span class="ch-slider-fill></span>"' +
             '</div>' +
             '</div>'
     };
@@ -30,6 +30,7 @@ function SliderDirective() {
         var $slider = angular.element($element[0].querySelector('.ch-slider'));
         var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
         var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
+        var $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
 
         init();
 
@@ -173,20 +174,24 @@ function SliderDirective() {
             var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
                 barWidth = $bar[0].getBoundingClientRect().width,
                 barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - pageX),
-                handlePosition = Math.abs(barOffset);
+                handlePosition = Math.abs(barOffset),
+                value;
 
             if (barOffset > 0) {
                 handlePosition = $scope.min;
                 value = handlePosition;
             } else {
-                var offsetPercentage = percent(handlePosition, barWidth),
-                    value = (($scope.max - $scope.min) * offsetPercentage) + parseFloat($scope.min);
+                var offsetPercentage = percent(handlePosition, barWidth);
+                value = (($scope.max - $scope.min) * offsetPercentage) + parseFloat($scope.min);
             }
             setValue(value, true, true);
 
         }
 
         function setValue(value, normalize, forceDigest) {
+
+
+
             normalize = (normalize === undefined) ? true : normalize;
             forceDigest = (forceDigest === undefined) ? false : forceDigest;
 
@@ -210,6 +215,7 @@ function SliderDirective() {
             }
 
             $handle.css('left', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
+            $fill.css('width', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
             if (normalize) {
                 $scope.model = value;
                 if (forceDigest) {
@@ -230,9 +236,9 @@ function SliderDirective() {
             else
                 return number;
         }
-    };
+    }
 
 
 
 
-};
+}
