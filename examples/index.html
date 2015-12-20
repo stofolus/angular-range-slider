@@ -2,29 +2,42 @@
 <html>
 
 <head>
-  <script src="../node_modules/angular/angular.js"></script>
-  <script src="../slider.js"></script>
-  <link href="../slider.css" rel="stylesheet">
-  <style>
-    body {
-        width: 600px;
-        margin: 0 auto;
-    }
-  </style>
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../slider.js"></script>
+    <link href="../slider.css" rel="stylesheet">
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 
 <body>
-  <div ng-app="ch.examples.slider">
-    <h1>Slider test</h1>
-    <slider model="sliderValue">
-    </slider>
-    <span>Value: {{ sliderValue }}</span>
-    <br>
-    <input ng-model="sliderValue">
-  </div>
-  <script>
-    angular.module('ch.examples.slider', ['chasselberg.slider']);
-  </script>
+    <div ng-app="ch.examples.slider">
+        <h1>Slider test</h1>
+        <slider model="sliderValue" step="sliderStep" min="sliderMin" max="sliderMax">
+        </slider>
+        <br>
+        <label>Value
+            <input ng-model="sliderValue">
+        </label>
+        <br>
+        <label>Min
+            <input ng-model="sliderMin">
+        </label>
+        <br>
+        <label>Max
+            <input ng-model="sliderMax">
+        </label>
+        <br>
+        <label>Step
+            <input ng-model="sliderStep">
+        </label>
+    </div>
+    <script>
+        angular.module('ch.examples.slider', ['chasselberg.slider']);
+    </script>
 
 </body>
 
