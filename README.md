@@ -25,3 +25,13 @@ Angular
 ## What's left:
 * Clicking on the bar to change value and begin dragging
 * SASS support
+
+## Usage
+Add the `chasselberg.slider` module to your Angular app
+```javascript
+    angular.module('ch.examples.slider', ['chasselberg.slider']);
+```
+Add sliders to your views
+```html
+    <slider model="sliderValue" step="2" min="0" max="100"></slider>
+```
