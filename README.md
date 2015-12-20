@@ -1,5 +1,5 @@
 # Angular-range-slider
-** This package is completely untested! If you find any bugs please report them to me **
+**This package is completely untested! If you find any bugs please report them to me**
 
 An Angular range slider with accessibility. It only supports horizontal mode with one handle. As for now I'm not going to implement vertical mode or two handles as I don't need them.
 
