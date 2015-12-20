@@ -11,7 +11,7 @@ function SliderDirective() {
             step: '='
         },
         link: linkFunction,
-        template: '<div class="ch-slider">' +
+        template: '<div class="ch-slider" tabindex="0">' +
             '<div class="ch-slider-bar">' +
             '<span class="ch-slider-handle" ' +
             'role="slider" ' +
@@ -27,6 +27,7 @@ function SliderDirective() {
     return directive;
 
     function linkFunction($scope, $element) {
+        var $slider = angular.element($element[0].querySelector('.ch-slider'));
         var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
         var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
 
@@ -39,31 +40,101 @@ function SliderDirective() {
             $scope.model = ($scope.model === undefined) ? ($scope.max - $scope.min) / 2 : $scope.model;
 
             setupEvents();
+            setupKeyboardEvents();
             setupWatches();
 
         }
 
-
         function setupEvents() {
+            setupDragEvents();
+            setupTouchEvents();
+        }
+
+        function setupDragEvents() {
             var isActive = false;
-            $handle.on('mousedown', function() {
+            $handle.on('touchstart', function(event) {
                 isActive = true;
-                angular.element(window).on('mousemove', move);
-                angular.element(window).on('mouseup', end);
+                angular.element(window).on('touchmove', touchMove);
+                angular.element(window).on('touchend', touchEnd);
             });
 
-            function move(event) {
+            function touchMove(event) {
                 if (isActive) {
                     event.preventDefault();
                     calcPosition(event);
                 }
             }
 
-            function end(event) {
+            function touchEnd(event) {
                 if (isActive) {
                     isActive = false;
-                    angular.element(window).off('mousemove', move);
-                    angular.element(window).off('mouseup', end);
+                    angular.element(window).off('touchmove', touchMove);
+                    angular.element(window).off('touchend', touchEnd);
+                }
+            }
+        }
+
+        function setupTouchEvents() {
+            var isActive = false;
+            $handle.on('mousedown', function(event) {
+                isActive = true;
+                angular.element(window).on('mousemove', dragMove);
+                angular.element(window).on('mouseup', dragEnd);
+            });
+
+            function dragMove(event) {
+                if (isActive) {
+                    event.preventDefault();
+                    calcPosition(event);
+                }
+            }
+
+            function dragEnd(event) {
+                if (isActive) {
+                    isActive = false;
+                    angular.element(window).off('mousemove', dragMove);
+                    angular.element(window).off('mouseup', dragEnd);
+                }
+            }
+        }
+
+        function setupKeyboardEvents() {
+
+            $slider.on('keydown', handleKeys);
+
+            var Keys = {
+                UP: 38,
+                DOWN: 40,
+                LEFT: 37,
+                RIGHT: 39,
+                PAGEUP: 33,
+                PAGEDOWN: 34,
+                HOME: 36,
+                END: 35
+            };
+
+            function handleKeys(event) {
+                switch (event.keyCode) {
+                    case Keys.UP:
+                    case Keys.RIGHT:
+                        setValue($scope.model + $scope.step, true, true);
+                        break;
+                    case Keys.DOWN:
+                    case Keys.LEFT:
+                        setValue($scope.model - $scope.step, true, true);
+                        break;
+                    case Keys.PAGEUP:
+                    setValue($scope.model + ($scope.step * 10), true, true);
+                    break;
+                    case Keys.PAGEDOWN:
+                    setValue($scope.model - ($scope.step * 10), true, true);
+                    break;
+                    case Keys.HOME:
+                        setValue($scope.min, true, true);
+                        break;
+                    case Keys.END:
+                        setValue($scope.max, true, true);
+                        break;
                 }
             }
         }
@@ -91,9 +162,17 @@ function SliderDirective() {
         }
 
         function calcPosition(event) {
+            var pageX;
+            // Touch events seem to behave differently across devices. This is mostly untested though
+            if (event.type === 'touchstart' || event.type === 'touchmove') {
+                var touch = event.changedTouches[0] || event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+                pageX = touch.pageX;
+            } else {
+                pageX = event.pageX;
+            }
             var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
                 barWidth = $bar[0].getBoundingClientRect().width,
-                barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - event.pageX),
+                barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - pageX),
                 handlePosition = Math.abs(barOffset);
 
             if (barOffset > 0) {
@@ -103,8 +182,6 @@ function SliderDirective() {
                 var offsetPercentage = percent(handlePosition, barWidth),
                     value = (($scope.max - $scope.min) * offsetPercentage) + parseFloat($scope.min);
             }
-
-            console.log(value);
             setValue(value, true, true);
 
         }
@@ -126,9 +203,9 @@ function SliderDirective() {
             var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
                 percentage = percent(value - $scope.min, $scope.max - $scope.min) * 100;
 
-            if(percentage < 0) {
+            if (percentage < 0) {
                 percentage = 0;
-            } else if(percentage > 100) {
+            } else if (percentage > 100) {
                 percentage = 100;
             }
 
