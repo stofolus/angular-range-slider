@@ -160,6 +160,7 @@ function SliderDirective() {
                         setValue($scope.max, true, true);
                         break;
                 }
+                event.preventDefault();
             }
         }
 
