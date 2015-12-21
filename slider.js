@@ -137,6 +137,7 @@ function SliderDirective() {
             };
 
             function handleKeys(event) {
+                event.preventDefault();
                 switch (event.keyCode) {
                     case Keys.UP:
                     case Keys.RIGHT:
