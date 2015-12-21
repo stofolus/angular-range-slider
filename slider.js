@@ -1,9 +1,9 @@
-"use strict";
-
-angular.module('chasselberg.slider', [])
-    .directive('slider', SliderDirective);
-
 (function() {
+    "use strict";
+    
+    angular.module('chasselberg.slider', [])
+        .directive('slider', SliderDirective);
+
     function SliderDirective() {
         var directive = {
             restrict: 'EA',
