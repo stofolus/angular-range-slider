@@ -1,0 +1,24 @@
+{
+  "name": "angular-range-slider",
+  "description": "An Angular range slider with accessibility",
+  "main": "slider.js",
+  "authors": [
+    "Christoffer Hasselberg"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "a11y",
+    "accessibility",
+    "slider"
+  ],
+  "homepage": "https://github.com/stofolus/angular-range-slider",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
