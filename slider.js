@@ -137,6 +137,7 @@ function SliderDirective() {
             };
 
             function handleKeys(event) {
+                event.preventDefault();
                 switch (event.keyCode) {
                     case Keys.UP:
                     case Keys.RIGHT:
@@ -160,7 +161,6 @@ function SliderDirective() {
                         setValue($scope.max, true, true);
                         break;
                 }
-                event.preventDefault();
             }
         }
 
