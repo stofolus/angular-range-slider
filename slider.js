@@ -140,7 +140,6 @@ function SliderDirective() {
                 switch (event.keyCode) {
                     case Keys.UP:
                     case Keys.RIGHT:
-                        console.log('Setting to ' + ($scope.model + $scope.step));
                         setValue($scope.model + $scope.step, true, true);
                         break;
                     case Keys.DOWN:
@@ -184,7 +183,6 @@ function SliderDirective() {
                 update();
             });
             $scope.$watch(function() { return $element.attr('disabled'); }, function(value) {
-                console.log(value);
                 $scope.disabled = (value === undefined) ? false : true;
             });
 
