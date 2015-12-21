@@ -200,8 +200,7 @@ function SliderDirective() {
             } else {
                 pageX = event.pageX;
             }
-            var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
-                barWidth = $bar[0].getBoundingClientRect().width,
+            var barWidth = $bar[0].getBoundingClientRect().width,
                 barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - pageX),
                 handlePosition = Math.abs(barOffset),
                 value;
