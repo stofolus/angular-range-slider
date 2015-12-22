@@ -1,6 +1,6 @@
 (function() {
     "use strict";
-    
+
     angular.module('chasselberg.slider', [])
         .directive('slider', SliderDirective);
 
@@ -28,32 +28,32 @@
                 '</div>'
         };
         return directive;
-    
+
         function linkFunction($scope, $element, attributes) {
             var $slider = angular.element($element[0].querySelector('.ch-slider'));
             var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
             var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
             var $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
-    
+
             init();
-    
+
             function init() {
                 $scope.min = ($scope.min === undefined) ? 0 : parseFloat($scope.min);
                 $scope.max = ($scope.max === undefined) ? 100 : parseFloat($scope.max);
                 $scope.step = ($scope.step === undefined) ? 1 : parseFloat($scope.step);
                 $scope.model = ($scope.model === undefined) ? ($scope.max - $scope.min) / 2 : parseFloat($scope.model);
-    
+
                 setupEvents();
                 setupKeyboardEvents();
                 setupWatches();
-    
+
             }
-    
+
             function setupEvents() {
                 setupDragEvents();
                 setupTouchEvents();
             }
-    
+
             function setupDragEvents() {
                 var isActive = false;
                 $handle.on('touchstart', function(event) {
@@ -63,7 +63,7 @@
                         angular.element(window).on('touchend', touchEnd);
                     }
                 });
-    
+
                 $bar.on('touchstart', function(event) {
                     if($scope.disabled !== true) {
                         isActive = true;
@@ -72,14 +72,14 @@
                         calcPosition(event);
                     }
                 });
-    
+
                 function touchMove(event) {
                     if (isActive) {
                         event.preventDefault();
                         calcPosition(event);
                     }
                 }
-    
+
                 function touchEnd(event) {
                     if (isActive) {
                         isActive = false;
@@ -88,7 +88,7 @@
                     }
                 }
             }
-    
+
             function setupTouchEvents() {
                 var isActive = false;
                 $handle.on('mousedown', function(event) {
@@ -98,7 +98,7 @@
                         angular.element(window).on('mouseup', dragEnd);
                     }
                 });
-    
+
                 $bar.on('mousedown', function(event) {
                     if($scope.disabled !== true) {
                         isActive = true;
@@ -107,14 +107,14 @@
                         calcPosition(event);
                     }
                 });
-    
+
                 function dragMove(event) {
                     if (isActive) {
                         event.preventDefault();
                         calcPosition(event);
                     }
                 }
-    
+
                 function dragEnd(event) {
                     if (isActive) {
                         isActive = false;
@@ -123,11 +123,11 @@
                     }
                 }
             }
-    
+
             function setupKeyboardEvents() {
-    
+
                 $slider.on('keydown', handleKeys);
-    
+
                 var Keys = {
                     UP: 38,
                     DOWN: 40,
@@ -138,33 +138,39 @@
                     HOME: 36,
                     END: 35
                 };
-    
+
                 function handleKeys(event) {
                     switch (event.keyCode) {
                         case Keys.UP:
                         case Keys.RIGHT:
+                            event.preventDefault();
                             setValue($scope.model + $scope.step, true, true);
                             break;
                         case Keys.DOWN:
                         case Keys.LEFT:
+                            event.preventDefault();
                             setValue($scope.model - $scope.step, true, true);
                             break;
                         case Keys.PAGEUP:
-                        setValue($scope.model + ($scope.step * 10), true, true);
-                        break;
+                            event.preventDefault();
+                            setValue($scope.model + ($scope.step * 10), true, true);
+                            break;
                         case Keys.PAGEDOWN:
-                        setValue($scope.model - ($scope.step * 10), true, true);
-                        break;
+                            event.preventDefault();
+                            setValue($scope.model - ($scope.step * 10), true, true);
+                            break;
                         case Keys.HOME:
+                            event.preventDefault();
                             setValue($scope.min, true, true);
                             break;
                         case Keys.END:
+                            event.preventDefault();
                             setValue($scope.max, true, true);
                             break;
                     }
                 }
             }
-    
+
             function setupWatches() {
                 $scope.$watch(function() {
                     return $scope.model;
@@ -172,7 +178,7 @@
                     value = (value === undefined || value === '' || isNaN(value)) ? 0 : parseFloat(value);
                     setValue(value, false);
                 });
-    
+
                 attributes.$observe('min', function(value) {
                     $scope.min = (value === undefined || value === '' || isNaN(value)) ? 0 : parseFloat(value);
                     update();
@@ -188,12 +194,12 @@
                 $scope.$watch(function() { return $element.attr('disabled'); }, function(value) {
                     $scope.disabled = (value === undefined) ? false : true;
                 });
-    
+
                 function update() {
                     setValue($scope.model);
                 }
             }
-    
+
             function calcPosition(event) {
                 var pageX;
                 // Touch events seem to behave differently across devices. This is mostly untested though
@@ -207,7 +213,7 @@
                     barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - pageX),
                     handlePosition = Math.abs(barOffset),
                     value;
-    
+
                 if (barOffset > 0) {
                     handlePosition = $scope.min;
                     value = handlePosition;
@@ -216,35 +222,35 @@
                     value = (($scope.max - $scope.min) * offsetPercentage) + parseFloat($scope.min);
                 }
                 setValue(value, true, true);
-    
+
             }
-    
+
             function setValue(value, normalize, forceDigest) {
-    
+
                 value = parseFloat(value);
-    
+
                 normalize = (normalize === undefined) ? true : normalize;
                 forceDigest = (forceDigest === undefined) ? false : forceDigest;
-    
+
                 if (normalize) {
                     value = roundToInterval(value, $scope.step);
                 }
-    
+
                 if (value < $scope.min) {
                     value = $scope.min;
                 } else if (value > $scope.max) {
                     value = $scope.max;
                 }
-    
+
                 var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
                     percentage = percent(value - $scope.min, $scope.max - $scope.min) * 100;
-    
+
                 if (percentage < 0) {
                     percentage = 0;
                 } else if (percentage > 100) {
                     percentage = 100;
                 }
-    
+
                 $handle.css('left', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
                 $fill.css('width', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
                 if (normalize) {
@@ -254,11 +260,11 @@
                     }
                 }
             }
-    
+
             function percent(frac, num) {
                 return (frac / num);
             }
-    
+
             function roundToInterval(number, interval) {
                 return Math.round(number / interval) * interval;
             }
