@@ -1,6 +1,6 @@
 {
   "name": "angular-range-slider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An Angular range slider with accessibility",
   "main": "index.js",
   "scripts": {
