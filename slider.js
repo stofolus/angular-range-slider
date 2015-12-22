@@ -203,12 +203,18 @@
             function calcPosition(event) {
                 var pageX;
                 // Touch events seem to behave differently across devices. This is mostly untested though
-                if (event.type === 'touchstart' || event.type === 'touchmove') {
-                    var touch = event.changedTouches[0] || event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-                    pageX = touch.pageX;
-                } else {
+                if(event.pageX !== undefined) {
                     pageX = event.pageX;
+                } else if(event.changedTouches !== undefined && event.changedTouches.length > 0) {
+                    pageX = event.changedTouches[0].pageX;
+                } else if(event.originalEvent !== undefined && event.originalEvent.touches !== undefined && event.originalEvent.touches.length > 0) {
+                    pageX = event.originalEvent.touches[0].pageX;
+                } else if(event.originalEvent !== undefined && event.originalEvent.changedTouches !== undefined && event.originalEvent.changedTouches.length > 0) {
+                    pageX = event.originalEvent.changedTouches[0].pageX;
+                } else {
+                    pageX = 0;
                 }
+
                 var barWidth = $bar[0].getBoundingClientRect().width,
                     barOffset = (($bar[0].getBoundingClientRect().left + document.body.scrollLeft) - pageX),
                     handlePosition = Math.abs(barOffset),
