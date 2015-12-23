@@ -1,0 +1,49 @@
+$ch-slider-bar-height: 10px !default;
+$ch-slider-bar-radius: 10px !default;
+$ch-slider-bar-color: grey !default;
+
+$ch-slider-handle-height: 20px !default;
+$ch-slider-handle-width: 20px !default;
+$ch-slider-handle-color: blue !default;
+$ch-slider-handle-radius: 9999px !default;
+$ch-slider-fill-color: green !default;
+
+.ch-slider {
+    width: 100%;
+
+    .ch-slider-bar {
+        width: 100%;
+        height: $ch-slider-bar-height;
+        background-color: $ch-slider-bar-color;
+        position: relative;
+        cursor: pointer;
+        border-radius: $ch-slider-bar-radius;
+
+        .ch-slider-handle {
+            width: $ch-slider-handle-width;
+            height: $ch-slider-handle-height;
+            background-color: $ch-slider-handle-color;
+            border-radius: $ch-slider-handle-radius;
+            display: block;
+            position: absolute;
+            top: -(($ch-slider-handle-height - $ch-slider-bar-height) / 2);
+            left: calc(50% - #{$ch-slider-handle-width  / 2});
+            left: 50%;
+            cursor: pointer;
+        }
+
+        .ch-slider-fill {
+            position: absolute;
+            top: 0;
+            bottom:0;
+            left: 0;
+            background-color: $ch-slider-fill-color;
+            border-top-left-radius: $ch-slider-handle-radius;
+            border-bottom-left-radius: $ch-slider-handle-radius;
+        }
+    }
+
+    &[disabled] .ch-slider .ch-slider-bar .ch-slider-handle {
+        background-color: black;
+    }
+}

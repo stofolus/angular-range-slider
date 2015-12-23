@@ -26,11 +26,42 @@ Angular
 * SASS support
 
 ## Usage
+### Javascript
+
+Include the script on the site
+```html
+<script src="./distribute/slider.js"></script>
+```
+
 Add the `chasselberg.slider` module to your Angular app
 ```javascript
-    angular.module('ch.examples.slider', ['chasselberg.slider']);
+    angular.module('your.ng.app', ['chasselberg.slider']);
 ```
 Add sliders to your views
 ```html
     <slider model="sliderValue" step="2" min="0" max="100"></slider>
+```
+
+### css
+#### SCSS
+Include the `slider.scss` in your main SCSS file using
+```scss
+    @import "slider.scss"
+```
+You can define the following variables BEFORE you include `slider.scss`
+```scss
+$ch-slider-bar-height: 10px !default;
+$ch-slider-bar-radius: 10px !default;
+$ch-slider-bar-color: grey !default;
+
+$ch-slider-handle-height: 20px !default;
+$ch-slider-handle-width: 20px !default;
+$ch-slider-handle-color: blue !default;
+$ch-slider-handle-radius: 9999px !default;
+$ch-slider-fill-color: green !default;
+```
+OR
+include the css file
+```html
+    <link href="./distribute/slider.css" rel="stylesheet">
 ```
