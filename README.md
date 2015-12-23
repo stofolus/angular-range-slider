@@ -57,6 +57,7 @@ $ch-slider-handle-height: 20px;
 $ch-slider-handle-width: 20px;
 $ch-slider-handle-color: blue;
 $ch-slider-handle-radius: 9999px;
+
 $ch-slider-fill-color: green;
 ```
 ### CSS
