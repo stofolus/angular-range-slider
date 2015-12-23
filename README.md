@@ -42,8 +42,7 @@ Add sliders to your views
     <slider model="sliderValue" step="2" min="0" max="100"></slider>
 ```
 
-### css
-#### SCSS
+### SCSS
 Include the `slider.scss` in your main SCSS file using
 ```scss
     @import "slider.scss"
@@ -60,8 +59,8 @@ $ch-slider-handle-color: blue !default;
 $ch-slider-handle-radius: 9999px !default;
 $ch-slider-fill-color: green !default;
 ```
-OR
-include the css file
+### CSS
+If you don't want to use the SCSS file you can instead include the css file in your HTML
 ```html
     <link href="./distribute/slider.css" rel="stylesheet">
 ```
