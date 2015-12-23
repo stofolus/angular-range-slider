@@ -1,7 +1,8 @@
 /**
-* angular-range-slider v1.0.3 
-* Built: 2015-12-23 08:01:44 
+* angular-range-slider v2.0.3 
+* Built: 2015-12-23 08:30:03 
 * Christoffer Hasselberg stofolus@gmail.com 
+* Released under the MIT license 
  */ 
 
 
