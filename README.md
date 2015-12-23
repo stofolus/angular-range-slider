@@ -49,15 +49,15 @@ Include the `slider.scss` in your main SCSS file using
 ```
 You can define the following variables BEFORE you include `slider.scss`
 ```scss
-$ch-slider-bar-height: 10px !default;
-$ch-slider-bar-radius: 10px !default;
-$ch-slider-bar-color: grey !default;
+$ch-slider-bar-height: 10px;
+$ch-slider-bar-radius: 10px;
+$ch-slider-bar-color: grey;
 
-$ch-slider-handle-height: 20px !default;
-$ch-slider-handle-width: 20px !default;
-$ch-slider-handle-color: blue !default;
-$ch-slider-handle-radius: 9999px !default;
-$ch-slider-fill-color: green !default;
+$ch-slider-handle-height: 20px;
+$ch-slider-handle-width: 20px;
+$ch-slider-handle-color: blue;
+$ch-slider-handle-radius: 9999px;
+$ch-slider-fill-color: green;
 ```
 ### CSS
 If you don't want to use the SCSS file you can instead include the css file in your HTML
