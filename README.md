@@ -22,9 +22,6 @@ Angular
 * Aria attributes for a11y
 * Keyboard support for a11y
 
-## What's left:
-* SASS support
-
 ## Usage
 ### Javascript
 
