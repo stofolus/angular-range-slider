@@ -17,6 +17,7 @@
             template: '<div class="ch-slider" tabindex="0">' +
                 '<div class="ch-slider-bar">' +
                 '<span class="ch-slider-fill"></span>' +
+                '<span class="ch-slider-line"></span>' +
                 '<span class="ch-slider-handle" ' +
                 'role="slider" ' +
                 'aria-valuemin="{{ min }}" ' +
@@ -34,6 +35,7 @@
             var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
             var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
             var $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
+            var $line = angular.element($element[0].querySelector('.ch-slider-line'));
 
             init();
 
@@ -196,7 +198,7 @@
                 });
 
                 function update() {
-                    setValue($scope.model);
+                    setValue($scope.model, true, false, true);
                 }
             }
 
@@ -231,12 +233,13 @@
 
             }
 
-            function setValue(value, normalize, forceDigest) {
+            function setValue(value, normalize, forceDigest, initLine) {
 
                 value = parseFloat(value);
 
                 normalize = (normalize === undefined) ? true : normalize;
                 forceDigest = (forceDigest === undefined) ? false : forceDigest;
+                initLine = (initLine === undefined) ? false : initLine;
 
                 if (normalize) {
                     value = roundToInterval(value, $scope.step);
@@ -250,6 +253,10 @@
 
                 var halfOfHandle = $handle[0].getBoundingClientRect().width / 2,
                     percentage = percent(value - $scope.min, $scope.max - $scope.min) * 100;
+                
+                if(halfOfHandle === 0) {
+                    halfOfHandle = 12; // default value
+                }
 
                 if (percentage < 0) {
                     percentage = 0;
@@ -259,6 +266,9 @@
 
                 $handle.css('left', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
                 $fill.css('width', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
+                if(initLine) {
+                    $line.css('left', 'calc(' + percentage + '% - ' + '1' + 'px)');
+                }
                 if (normalize) {
                     $scope.model = value;
                     if (forceDigest) {
