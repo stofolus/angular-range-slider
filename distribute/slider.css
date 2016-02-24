@@ -1,6 +1,6 @@
 /**
-* angular-range-slider v2.0.4 
-* Built: 2015-12-23 08:34:52 
+* angular-range-slider v2.1.0 
+* Built: 2016-02-24 09:59:13 
 * Christoffer Hasselberg stofolus@gmail.com 
 * Released under the MIT license 
  */ 
@@ -34,5 +34,13 @@
       background-color: green;
       border-top-left-radius: 9999px;
       border-bottom-left-radius: 9999px; }
+    .ch-slider .ch-slider-bar .ch-slider-line {
+      position: absolute;
+      top: calc(0px - 11.5px + 5px);
+      bottom: 0;
+      height: 23px;
+      width: 2px;
+      background-color: green;
+      left: calc(50% - 1px); }
   .ch-slider[disabled] .ch-slider .ch-slider-bar .ch-slider-handle {
     background-color: black; }
