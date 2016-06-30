@@ -1,6 +1,6 @@
 /**
-* angular-range-slider v2.1.2 
-* Built: 2016-02-25 10:17:00 
+* angular-range-slider v2.3.0 
+* Built: 2016-06-30 13:13:19 
 * Christoffer Hasselberg stofolus@gmail.com 
 * Released under the MIT license 
  */ 
@@ -191,22 +191,23 @@
 
                 attributes.$observe('min', function(value) {
                     $scope.min = (value === undefined || value === '' || isNaN(value)) ? 0 : parseFloat(value);
-                    update();
+                    update(false);
                 });
                 attributes.$observe('max', function(value) {
                     $scope.max = (value === undefined || value === '' || isNaN(value)) ? 100 : parseFloat(value);
-                    update();
+                    update(false);
                 });
                 attributes.$observe('step', function(value) {
                     $scope.step = (value === undefined || value === '' || isNaN(value)) ? 1 : parseFloat(value);
-                    update();
+                    update(true);
                 });
                 $scope.$watch(function() { return $element.attr('disabled'); }, function(value) {
                     $scope.disabled = (value === undefined) ? false : true;
                 });
 
-                function update() {
-                    setValue($scope.model, true, false, true);
+                function update(normalize) {
+                    normalize = (normalize !== undefined) ? normalize : false;
+                    setValue($scope.model, normalize, false, true);
                 }
             }
 
