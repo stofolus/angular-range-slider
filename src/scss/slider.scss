@@ -1,12 +1,13 @@
-$ch-slider-bar-height: 10px !default;
-$ch-slider-bar-radius: 10px !default;
-$ch-slider-bar-color: grey !default;
+$ch-slider-bar-height: 4px !default;
+$ch-slider-bar-radius: 4px !default;
+$ch-slider-bar-color: #ccc !default;
 
 $ch-slider-handle-height: 20px !default;
 $ch-slider-handle-width: 20px !default;
-$ch-slider-handle-color: blue !default;
+$ch-slider-handle-color: #fff !default;
+$ch-slider-handle-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 1px 3px 5px rgba(0, 0, 0, 0.25) !default;
 $ch-slider-handle-radius: 9999px !default;
-$ch-slider-fill-color: green !default;
+$ch-slider-fill-color: #4d8aeb !default;
 
 $ch-slider-line: true !default;
 $ch-slider-line-width: 2px !default;
@@ -29,6 +30,7 @@ $ch-slider-line-color: $ch-slider-fill-color !default;
             height: $ch-slider-handle-height;
             background-color: $ch-slider-handle-color;
             border-radius: $ch-slider-handle-radius;
+            box-shadow: $ch-slider-handle-shadow;
             display: block;
             position: absolute;
             top: -(($ch-slider-handle-height - $ch-slider-bar-height) / 2);
