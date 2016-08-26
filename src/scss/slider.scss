@@ -8,6 +8,7 @@ $ch-slider-handle-color: blue !default;
 $ch-slider-handle-radius: 9999px !default;
 $ch-slider-fill-color: green !default;
 
+$ch-slider-line: true !default;
 $ch-slider-line-width: 2px !default;
 $ch-slider-line-height: 23px !default;
 $ch-slider-line-color: $ch-slider-fill-color !default;
@@ -45,15 +46,17 @@ $ch-slider-line-color: $ch-slider-fill-color !default;
             border-top-left-radius: $ch-slider-handle-radius;
             border-bottom-left-radius: $ch-slider-handle-radius;
         }
-        
-        .ch-slider-line {
-            position: absolute;
-            top: calc(0px - #{$ch-slider-line-height / 2} + #{$ch-slider-bar-height / 2});
-            bottom: 0;
-            height: $ch-slider-line-height;
-            width: $ch-slider-line-width;
-            background-color: $ch-slider-line-color;
-            left: calc(50% - #{$ch-slider-line-width  / 2});
+
+        @if $ch-slider-line {
+            .ch-slider-line {
+                position: absolute;
+                top: calc(0px - #{$ch-slider-line-height / 2} + #{$ch-slider-bar-height / 2});
+                bottom: 0;
+                height: $ch-slider-line-height;
+                width: $ch-slider-line-width;
+                background-color: $ch-slider-line-color;
+                left: calc(50% - #{$ch-slider-line-width  / 2});
+            }
         }
     }
 
