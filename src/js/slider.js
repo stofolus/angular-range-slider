@@ -12,8 +12,8 @@
                 min: '@',
                 max: '@',
                 step: '@',
-                shouldSnap: '@',
-                snapRange: '@'
+                shouldSnapToInit: '@',
+                snapToInitRange: '@'
             },
             link: linkFunction,
             template: '<div class="ch-slider" tabindex="0">' +
@@ -38,7 +38,7 @@
             var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
             var $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
             var $line = angular.element($element[0].querySelector('.ch-slider-line'));
-            var $initValue = 0;
+            var initValue = 0;
 
             init();
 
@@ -47,8 +47,8 @@
                 $scope.max = ($scope.max === undefined) ? 100 : parseFloat($scope.max);
                 $scope.step = ($scope.step === undefined) ? 1 : parseFloat($scope.step);
                 $scope.model = ($scope.model === undefined) ? ($scope.max - $scope.min) / 2 : parseFloat($scope.model);
-                $scope.shouldSnap = ($scope.shouldSnap === undefined) ? true : parseFloat($scope.shouldSnap);
-                $scope.snapRange = ($scope.snapRange === undefined) ? percent(2.5, 100) : parseFloat(percent($scope.snapRange, 100));
+                $scope.shouldSnapToInit = ($scope.shouldSnapToInit === undefined) ? true : !!$scope.shouldSnapToInit;
+                $scope.snapToInitRange = ($scope.snapToInitRange === undefined) ? percent(2.5, 100) : parseFloat(percent($scope.snapToInitRange, 100));
 
                 setupEvents();
                 setupKeyboardEvents();
@@ -235,24 +235,24 @@
                     var offsetPercentage = percent(handlePosition, barWidth);
                     value = (($scope.max - $scope.min) * offsetPercentage) + parseFloat($scope.min);
                 }
-                setValue(value, true, true, $scope.shouldSnap);
+                setValue(value, true, true, $scope.shouldSnapToInit);
 
             }
 
-            function setValue(value, normalize, forceDigest, shouldSnap, initLine) {
+            function setValue(value, normalize, forceDigest, shouldSnapToInit, initLine) {
 
                 value = parseFloat(value);
 
                 normalize = (normalize === undefined) ? true : normalize;
                 forceDigest = (forceDigest === undefined) ? false : forceDigest;
-                shouldSnap = (shouldSnap === undefined) ? false : shouldSnap;
+                shouldSnapToInit = (shouldSnapToInit === undefined) ? false : shouldSnapToInit;
                 initLine = (initLine === undefined) ? false : initLine;
 
                 if (normalize) {
-                    var difference = Math.abs(percent($initValue - value, $scope.max - $scope.min));
+                    var difference = Math.abs(percent(initValue - value, $scope.max - $scope.min));
 
-                    if (shouldSnap && $initValue > 0 && difference < $scope.snapRange) {
-                        value = roundToInterval(value, $initValue);
+                    if (shouldSnapToInit && difference < $scope.snapToInitRange) {
+                        value = initValue;
                     }
                     else {
                         value = roundToInterval(value, $scope.step);
@@ -281,7 +281,7 @@
                 $handle.css('left', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
                 $fill.css('width', 'calc(' + percentage + '% - ' + halfOfHandle + 'px)');
                 if(initLine) {
-                    $initValue = value;
+                    initValue = value;
                     $line.css('left', 'calc(' + percentage + '% - ' + '1' + 'px)');
                 }
                 if (normalize) {
