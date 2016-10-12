@@ -147,6 +147,9 @@
                 };
 
                 function handleKeys(event) {
+                    if($scope.disabled) {
+                        return;
+                    }
                     switch (event.keyCode) {
                         case Keys.UP:
                         case Keys.RIGHT:
