@@ -8,7 +8,8 @@ $ch-slider-handle-color: #fff !default;
 $ch-slider-handle-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 1px 3px 5px rgba(0, 0, 0, 0.25) !default;
 $ch-slider-handle-radius: 9999px !default;
 $ch-slider-fill-color: #4d8aeb !default;
-
+$ch-slider-disabled-color: #ccc !default;
+$ch-slider-disabled-fill-color: #000 !default;
 $ch-slider-line: true !default;
 $ch-slider-line-width: 2px !default;
 $ch-slider-line-height: 23px !default;
@@ -61,8 +62,17 @@ $ch-slider-line-color: $ch-slider-fill-color !default;
             }
         }
     }
-
-    &[disabled] .ch-slider .ch-slider-bar .ch-slider-handle {
-        background-color: black;
+}
+slider  {
+    &[disabled] {
+        .ch-slider-bar {
+            background-color: $ch-slider-disabled-color;
+            .ch-slider-handle {
+                background-color: $ch-slider-disabled-color;
+            }
+            .ch-slider-fill {
+                background-color: $ch-slider-disabled-fill-color;
+            }
+        }
     }
 }

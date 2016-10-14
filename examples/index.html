@@ -34,11 +34,14 @@
         <label>Step
             <input ng-init="sliderStep = 2" ng-model="sliderStep">
         </label>
+
+        <hr />
+        <h2>Disabled slider</h2>
+        <slider ng-init="sliderValue = 125" model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}" disabled>
+        </slider>
     </div>
     <script>
         angular.module('ch.examples.slider', ['chasselberg.slider']);
     </script>
-
 </body>
-
 </html>

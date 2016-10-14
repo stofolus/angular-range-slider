@@ -56,7 +56,10 @@ $ch-slider-handle-color: blue;
 $ch-slider-handle-radius: 9999px;
 
 $ch-slider-fill-color: green;
+$ch-slider-disabled-color: grey;
+$ch-slider-disabled-fill-color: black;
 ```
+
 ### CSS
 If you don't want to use the SCSS file you can instead include the css file in your HTML
 ```html
