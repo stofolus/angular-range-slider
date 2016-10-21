@@ -17,7 +17,7 @@
             },
             link: linkFunction,
             templateUrl: function(elem,attrs) {
-                return attrs.templateUrl || 'slider.html'
+                return attrs.templateUrl
             }
         };
         return directive;
