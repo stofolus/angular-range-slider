@@ -16,19 +16,9 @@
                 snapToInitRange: '@'
             },
             link: linkFunction,
-            template: '<div class="ch-slider" tabindex="0">' +
-                '<div class="ch-slider-bar">' +
-                '<span class="ch-slider-fill"></span>' +
-                '<span class="ch-slider-line"></span>' +
-                '<span class="ch-slider-handle" ' +
-                'role="slider" ' +
-                'aria-valuemin="{{ min }}" ' +
-                'aria-valuemax="{{ max }}" ' +
-                'aria-valuenow="{{ model }}" ' +
-                'aria-orientation="horizontal" ' +
-                '></span>' +
-                '</div>' +
-                '</div>'
+            templateUrl: function(elem,attrs) {
+                return attrs.templateUrl || 'slider.html'
+            }
         };
         return directive;
 
