@@ -47,6 +47,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+        copy: {
+          main: {
+            files: [
+              {
+                  expand: false,
+                  src: 'src/views/slider.html',
+                  dest: 'distribute/slider.html',
+                  filter: 'isFile'
+              },
+            ],
+          },
+        },
 
         clean: ['distribute']
 
@@ -57,7 +69,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['clean', 'sass', 'cssmin', 'concat', 'uglify']);
+    grunt.registerTask('default', ['clean', 'sass', 'cssmin', 'concat', 'uglify', 'copy']);
 
 };
