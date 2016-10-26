@@ -4,7 +4,22 @@
     angular.module('chasselberg.slider', [])
         .directive('slider', SliderDirective);
 
-    function SliderDirective() {
+    function SliderDirective($compile, $templateRequest) {
+
+        var defaultTemplate = '<div class="ch-slider" tabindex="0">' +
+                    '<div class="ch-slider-bar">' +
+                    '<span class="ch-slider-fill"></span>' +
+                    '<span class="ch-slider-line"></span>' +
+                    '<span class="ch-slider-handle" ' +
+                    'role="slider" ' +
+                    'aria-valuemin="{{ min }} XXX" ' +
+                    'aria-valuemax="{{ max }}" ' +
+                    'aria-valuenow="{{ model }}" ' +
+                    'aria-orientation="horizontal" ' +
+                    '></span>' +
+                    '</div>' +
+                    '</div>';
+
         var directive = {
             restrict: 'EA',
             scope: {
@@ -15,24 +30,37 @@
                 shouldSnapToInit: '@',
                 snapToInitRange: '@'
             },
-            link: linkFunction,
-            templateUrl: function(elem,attrs) {
-                return attrs.templateUrl
-            }
+            link: linkFunction
         };
+
         return directive;
 
         function linkFunction($scope, $element, attributes) {
-            var $slider = angular.element($element[0].querySelector('.ch-slider'));
-            var $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
-            var $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
-            var $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
-            var $line = angular.element($element[0].querySelector('.ch-slider-line'));
-            var initValue = 0;
+            var $slider, $bar, $handle, $fill, $line, initValue;
 
-            init();
+            if(typeof attributes.templateUrl !== 'undefined') {
+                var templatePath = attributes.templateUrl;
+                $templateRequest(templatePath).then(function(html) {
+                    var template = angular.element(html);
+                    $element.append(template);
+                    $compile(template.contents())($scope);
+                    init();
+                });
+            } else {
+                var template = angular.element(defaultTemplate);
+                $element.append(template);
+                $compile(template)($scope);
+                init();
+            }
 
             function init() {
+                $slider = angular.element($element[0].querySelector('.ch-slider'));
+                $bar = angular.element($element[0].querySelector('.ch-slider-bar'));
+                $handle = angular.element($element[0].querySelector('.ch-slider-handle'));
+                $fill = angular.element($element[0].querySelector('.ch-slider-fill'));
+                $line = angular.element($element[0].querySelector('.ch-slider-line'));
+                initValue = 0;
+
                 $scope.min = ($scope.min === undefined) ? 0 : parseFloat($scope.min);
                 $scope.max = ($scope.max === undefined) ? 100 : parseFloat($scope.max);
                 $scope.step = ($scope.step === undefined) ? 1 : parseFloat($scope.step);

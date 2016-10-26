@@ -16,7 +16,7 @@
 <body>
     <div ng-app="ch.examples.slider">
         <h1>Slider test</h1>
-        <slider ng-init="sliderValue = 125" model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}" template-url="../distribute/slider.html">
+        <slider ng-init="sliderValue = 125" model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}">
         </slider>
         <br>
         <label>Value
@@ -37,7 +37,7 @@
 
         <hr />
         <h2>Disabled slider</h2>
-        <slider ng-init="sliderValue = 125" model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}" disabled  template-url="../distribute/slider.html">
+        <slider ng-init="sliderValue = 125" model="sliderValue" step="{{ sliderStep }}" min="{{ sliderMin }}" max="{{ sliderMax }}" disabled>
         </slider>
     </div>
     <script>
