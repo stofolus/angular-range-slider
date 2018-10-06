@@ -20,13 +20,12 @@
                 'role="slider" ' +
                 'aria-valuemin="{{ min }}" ' +
                 'aria-valuemax="{{ max }}" ' +
-                'aria-valuenow="{{ model }}">' +
+                'aria-valuenow="{{ model }}" ' +
+                'aria-orientation="horizontal">' +
                 '<div class="ch-slider-bar">' +
                 '<span class="ch-slider-fill"></span>' +
                 '<span class="ch-slider-line"></span>' +
-                '<span class="ch-slider-handle" ' +
-                'aria-orientation="horizontal" ' +
-                '></span>' +
+                '<span class="ch-slider-handle"></span>' +
                 '</div>' +
                 '</div>'
         };
