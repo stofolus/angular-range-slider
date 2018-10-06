@@ -17,12 +17,12 @@
             },
             link: linkFunction,
             template: '<div class="ch-slider" tabindex="0" ' +
-                'role="slider">' +
+                'role="slider" ' +
+                'aria-valuemin="{{ min }}">' +
                 '<div class="ch-slider-bar">' +
                 '<span class="ch-slider-fill"></span>' +
                 '<span class="ch-slider-line"></span>' +
                 '<span class="ch-slider-handle" ' +
-                'aria-valuemin="{{ min }}" ' +
                 'aria-valuemax="{{ max }}" ' +
                 'aria-valuenow="{{ model }}" ' +
                 'aria-orientation="horizontal" ' +
